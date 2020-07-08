@@ -1,3 +1,80 @@
+class EditCar extends React.Component {
+  state = { cars: [] };
+
+  // update car
+  updateCar = (event) => {
+    event.preventDefault();
+
+    const id = event.target.getAttribute("id");
+    axios
+      .put("/cars/" + id, {
+        make: this.state.updateMake,
+        img: this.state.updateImage,
+        model: this.state.updateModel,
+        year: this.state.updateYear,
+        description: this.state.updateDescription,
+      })
+      .then((response) => {
+        this.setState({ cars: response.data });
+      });
+    console.log("don't change me !!!");
+    console.log(this.props.id);
+  };
+  updateMake = (event) => {
+    if (event.target.value !== null) {
+      this.setState({ updateMake: event.target.value });
+    }
+  };
+  updateModel = (event) => {
+    if (event.target.value !== null) {
+      this.setState({ updateModel: event.target.value });
+    }
+  };
+  updateImage = (event) => {
+    if (event.target.value !== null) {
+      this.setState({ updateImage: event.target.value });
+    }
+  };
+  updateYear = (event) => {
+    if (event.target.value !== null) {
+      this.setState({ updateYear: event.target.value });
+    }
+  };
+  updateDescription = (event) => {
+    if (event.target.value !== null) {
+      this.setState({ updateDescription: event.target.value });
+    }
+  };
+
+  render = () => {
+    return (
+      <div>
+        <form id={this.props.id} onSubmit={this.updateCar}>
+          <input onKeyUp={this.updateMake} type="text" placeholder="Make" />
+          <br />
+          <input
+            onKeyUp={this.updateImage}
+            type="text"
+            placeholder="Add an Image"
+          />
+          <br />
+          <input onKeyUp={this.updateModel} type="text" placeholder="Model" />
+          <br />
+          <input onKeyUp={this.updateYear} type="text" placeholder="Year" />
+          <br />
+          <input
+            onKeyUp={this.updateDescription}
+            type="text"
+            placeholder="Description"
+          />
+          <br />
+          <input type="submit" value="Edit this Car" />
+        </form>
+      </div>
+    );
+  };
+}
+
 class AddCar extends React.Component {
   state = { cars: [] };
 
@@ -84,40 +161,6 @@ class App extends React.Component {
     console.log("ouch!!! you deleted me !!!");
   };
 
-  // update car
-  updateCar = (event) => {
-    event.preventDefault();
-
-    const id = event.target.getAttribute("id");
-    axios
-      .put("/cars/" + id, {
-        make: this.state.updateMake,
-        image: this.state.updateImage,
-        model: this.state.updateModel,
-        year: this.state.updateYear,
-        description: this.state.updateDescription,
-      })
-      .then((response) => {
-        this.setState({ cars: response.data });
-      });
-    console.log("don't change me !!!");
-  };
-  updateMake = (event) => {
-    this.setState({ updateMake: event.target.value });
-  };
-  updateModel = (event) => {
-    this.setState({ updateModel: event.target.value });
-  };
-  updateImage = (event) => {
-    this.setState({ updateImage: event.target.value });
-  };
-  updateYear = (event) => {
-    this.setState({ updateYear: event.target.value });
-  };
-  updateDescription = (event) => {
-    this.setState({ updateDescription: event.target.value });
-  };
-
   render = () => {
     return (
       <div>
@@ -143,6 +186,7 @@ class App extends React.Component {
                   >
                     DELETE
                   </button>
+                  <EditCar id={car.id} />
                 </div>
               </div>
             );
