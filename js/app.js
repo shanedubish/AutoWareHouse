@@ -1,14 +1,5 @@
-class App extends React.Component {
+class AddCar extends React.Component {
   state = { cars: [] };
-
-  // get cars on page load
-
-  componentDidMount = () => {
-    axios.get("/cars").then((response) => {
-      this.setState({ cars: response.data });
-      console.log(this.state.cars);
-    });
-  };
 
   // create car
   createCar = (event) => {
@@ -16,7 +7,7 @@ class App extends React.Component {
     axios
       .post("/cars", {
         make: this.state.newMake,
-        image: this.state.newImage,
+        img: this.state.newImage,
         model: this.state.newModel,
         year: this.state.newYear,
         description: this.state.newDescription,
@@ -40,6 +31,47 @@ class App extends React.Component {
   };
   makeNewDescription = (event) => {
     this.setState({ newDescription: event.target.value });
+  };
+
+  render = () => {
+    return (
+      <div>
+        <form onSubmit={this.createCar}>
+          <input onKeyUp={this.makeNewMake} type="text" placeholder="Make" />
+          <br />
+          <input
+            onKeyUp={this.makeNewImage}
+            type="text"
+            placeholder="Add an Image"
+          />
+          <br />
+          <input onKeyUp={this.makeNewModel} type="text" placeholder="Model" />
+          <br />
+          <input onKeyUp={this.makeNewYear} type="text" placeholder="Year" />
+          <br />
+          <input
+            onKeyUp={this.makeNewDescription}
+            type="text"
+            placeholder="Description"
+          />
+          <br />
+          <input type="submit" value="Create New Car" />
+        </form>
+      </div>
+    );
+  };
+}
+
+class App extends React.Component {
+  state = { cars: [] };
+
+  // get cars on page load
+
+  componentDidMount = () => {
+    axios.get("/cars").then((response) => {
+      this.setState({ cars: response.data });
+      console.log(this.state.cars);
+    });
   };
 
   //  delete car
@@ -89,6 +121,7 @@ class App extends React.Component {
   render = () => {
     return (
       <div>
+        <AddCar />
         {this.state.cars.map((car, i) => {
           return (
             <div key={i} className="card text-center">
