@@ -6,6 +6,7 @@ class App extends React.Component {
   componentDidMount = () => {
     axios.get("/cars").then((response) => {
       this.setState({ cars: response.data });
+      console.log(this.state.cars);
     });
   };
 
@@ -85,6 +86,22 @@ class App extends React.Component {
     this.setState({ updateDescription: event.target.value });
   };
 
-  render = () => {};
+  render = () => {
+    return (
+      <div>
+        {this.state.cars.map((car, i) => {
+          return (
+            <div key={i}>
+              <h2>{car.make}</h2>
+              <h2>{car.model}</h2>
+              <img src={car.img} alt={car.model} />
+              <h2>{car.year}</h2>
+              <h2>{car.description}</h2>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 }
 ReactDOM.render(<App></App>, document.querySelector("main"));
