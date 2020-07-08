@@ -122,26 +122,32 @@ class App extends React.Component {
     return (
       <div>
         <AddCar />
-        {this.state.cars.map((car, i) => {
-          return (
-            <div key={i} className="card text-center">
-              <img src={car.img} alt={car.model} className="card-img-top" />
-              <h5 className="card-title">
-                {car.year} {car.make} {car.model}
-              </h5>
-              <p className="card-text">{car.description}</p>
-              {/* buttons */}
-              <div className="mb-2">
-                <a href="#" className="btn-sm btn-primary m-2">
-                  EDIT
-                </a>
-                <a href="#" className="btn-sm btn-danger m-2">
-                  DELETE
-                </a>
+        <div className="d-flex flex-row justify-content-around flex-wrap">
+          {this.state.cars.map((car, i) => {
+            return (
+              <div key={i} className="card text-center  ">
+                <img src={car.img} alt={car.model} className="card-img-top" />
+                <h5 className="card-title">
+                  {car.year} {car.make} {car.model}
+                </h5>
+                <p className="card-text">{car.description}</p>
+                {/* buttons */}
+                <div className="mb-2">
+                  <button value={car.id} className="btn-sm btn-primary m-2">
+                    EDIT
+                  </button>
+                  <button
+                    onClick={this.deleteCar}
+                    value={car.id}
+                    className="btn-sm btn-danger m-2"
+                  >
+                    DELETE
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     );
   };

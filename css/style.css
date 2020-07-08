@@ -4,18 +4,26 @@ body {
 
 .banner {
   height: 25rem;
-  width: auto;
+  width: 100%;
   background-image: url("/images/aston-martin.jpeg");
-  background-size: contain;
+
   background-repeat: no-repeat;
+  background-position: bottom;
   margin-bottom: 2em;
 }
 
 .card {
-  width: 20rem;
-  border: 0.5em solid black;
+  width: 25rem;
+  /* border: 0.5em solid black; */
+  border-radius: 20px;
+  -webkit-box-shadow: 5px 5px 15px 16px rgba(0, 0, 0, 0.77);
+  box-shadow: 5px 5px 15px 16px rgba(0, 0, 0, 0.77);
 }
 
 .card-img-top {
   border-bottom: 0.5em solid black;
+}
+.heading {
+  color: white;
+  text-shadow: -4px -2px 1px rgba(123, 164, 149, 0.68);
 }
