@@ -18,6 +18,20 @@ if ($_REQUEST['action'] === 'index') {
     $body_object->img
   );
   $all_cars = Cars::create($new_car);
+} elseif ($_REQUEST['action'] === 'update') {
+  $request_body = file_get_contents('php://input');
+  $body_object = json_decode($request_body);
+
+  $update_car = new Car(
+    $_REQUEST['id'],
+    $body_object->make,
+    $body_object->model,
+    $body_object->year,
+    $body_object->description,
+    $body_object->img
+  );
+  $all_cars = Cars::update($update_car);
+  echo json_encode($all_cars);
 }
 
 ?>

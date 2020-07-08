@@ -84,6 +84,22 @@ class Cars
     }
     return $cars;
   }
+
+  // update
+  static function update($update_car)
+  {
+    $query =
+      "UPDATE cars SET make = $1, model = $2, year = $3, description = $4, img = $5";
+    $query_params = [
+      $update_car->make,
+      $update_car->model,
+      $update_car->year,
+      $update_car->description,
+      $update_car->img,
+    ];
+    $result = pg_query_params($query, $query_params);
+    return self::all();
+  }
 }
 
 ?>
