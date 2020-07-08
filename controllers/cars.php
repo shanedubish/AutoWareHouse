@@ -32,6 +32,9 @@ if ($_REQUEST['action'] === 'index') {
   );
   $all_cars = Cars::update($update_car);
   echo json_encode($all_cars);
+} elseif ($_REQUEST['action'] === 'delete') {
+  $all_cars = Cars::delete($_REQUEST['id']);
+  echo json_encode($all_cars);
 }
 
 ?>

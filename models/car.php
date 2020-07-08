@@ -100,6 +100,15 @@ class Cars
     $result = pg_query_params($query, $query_params);
     return self::all();
   }
+
+  // delete
+  static function delete($id)
+  {
+    $query = 'DELETE FROM cars WHERE id = $1';
+    $query_params = [$id];
+    $result = pg_query_params($query, $query_params);
+    return self::all();
+  }
 }
 
 ?>
