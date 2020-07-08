@@ -31,21 +31,40 @@ if (getenv('DATABASE_URL')) {
 
 class Car
 {
-  public $id, $make, $model, $year, $desc, $img;
+  public $id, $make, $model, $year, $description, $img;
 
-  public function __construct($id, $make, $model, $year, $desc, $img)
+  public function __construct($id, $make, $model, $year, $description, $img)
   {
     $this->id = $id;
     $this->make = $make;
     $this->model = $model;
     $this->year = $year;
-    $this->desc = $desc;
+    $this->description = $description;
     $this->img = $img;
   }
 }
 
 class Cars
 {
+  // show all
+  static function all()
+  {
+    $cars = [];
+    $results = pg_query["SELECT * FROM cars ORDER by id ASC"];
+
+    $row_object = pg_fetch_object($results);
+    while ($row_object !== false) {
+      $new_car = new Car(
+        intval($row_object->id),
+        $row_object->make,
+        $row_object->model,
+        intval($row_object->year),
+        $row_object->description,
+        $row_object->img
+      );
+    }
+    return $cars;
+  }
 }
 
 ?>
