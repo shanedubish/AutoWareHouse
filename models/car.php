@@ -46,11 +46,27 @@ class Car
 
 class Cars
 {
-  // show all function
+  // create
+  static function create($car)
+  {
+    $query =
+      "INSERT INTO cars (make, model, year, description, img) VALUES ($1, $2, $3, $4, $5)";
+    $query_params = [
+      $car->make,
+      $car->model,
+      $car->year,
+      $car->description,
+      $car->img,
+    ];
+    pg_query_params($query, $query_params);
+    return self::all();
+  }
+
+  // show all
   static function all()
   {
     $cars = [];
-    $results = pg_query["SELECT * FROM cars ORDER by id ASC"];
+    $results = pg_query("SELECT * FROM cars ORDER by id ASC");
 
     $row_object = pg_fetch_object($results);
     while ($row_object !== false) {
@@ -62,6 +78,9 @@ class Cars
         $row_object->description,
         $row_object->img
       );
+
+      $cars[] = $new_car;
+      $row_object = pg_fetch_object($results);
     }
     return $cars;
   }
