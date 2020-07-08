@@ -91,12 +91,21 @@ class App extends React.Component {
       <div>
         {this.state.cars.map((car, i) => {
           return (
-            <div key={i}>
-              <h2>{car.make}</h2>
-              <h2>{car.model}</h2>
-              <img src={car.img} alt={car.model} />
-              <h2>{car.year}</h2>
-              <h2>{car.description}</h2>
+            <div key={i} className="card text-center">
+              <img src={car.img} alt={car.model} className="card-img-top" />
+              <h5 className="card-title">
+                {car.year} {car.make} {car.model}
+              </h5>
+              <p className="card-text">{car.description}</p>
+              {/* buttons */}
+              <div className="mb-2">
+                <a href="#" className="btn-sm btn-primary m-2">
+                  EDIT
+                </a>
+                <a href="#" className="btn-sm btn-danger m-2">
+                  DELETE
+                </a>
+              </div>
             </div>
           );
         })}
