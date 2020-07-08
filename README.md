@@ -3,4 +3,4 @@
 ## Contributors
 
 - Alex Wander
-  -Shane Dubish
+- Shane Dubish
