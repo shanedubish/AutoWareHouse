@@ -46,7 +46,7 @@ class Car
 
 class Cars
 {
-  // show all
+  // show all function
   static function all()
   {
     $cars = [];
