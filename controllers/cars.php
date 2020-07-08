@@ -5,7 +5,7 @@ include_once __DIR__ . '/../models/car.php';
 if ($_REQUEST['action'] === 'index') {
   $all_cars = Cars::all();
   echo json_encode($all_cars);
-} elseif ($_REQUEST['action'] === 'create') {
+} elseif ($_REQUEST['action'] === 'post') {
   $request_body = file_get_contents('php://input');
   $body_object = json_decode($request_body);
 
