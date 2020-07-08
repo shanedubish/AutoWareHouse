@@ -1,5 +1,6 @@
 <?php
 
+// database connection
 $dbconn = null;
 if (getenv('DATABASE_URL')) {
   $connectionConfig = parse_url(getenv('DATABASE_URL'));
@@ -26,6 +27,25 @@ if (getenv('DATABASE_URL')) {
   );
 } else {
   $dbconn = pg_connect("host=localhost dbname=autowarehouse");
+}
+
+class Car
+{
+  public $id, $make, $model, $year, $desc, $img;
+
+  public function __construct($id, $make, $model, $year, $desc, $img)
+  {
+    $this->id = $id;
+    $this->make = $make;
+    $this->model = $model;
+    $this->year = $year;
+    $this->desc = $desc;
+    $this->img = $img;
+  }
+}
+
+class Cars
+{
 }
 
 ?>
