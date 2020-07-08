@@ -51,6 +51,19 @@ class Cars
   {
     $cars = [];
     $results = pg_query["SELECT * FROM cars ORDER by id ASC"];
+
+    $row_object = pg_fetch_object($results);
+    while ($row_object !== false) {
+      $new_car = new Car(
+        intval($row_object->id),
+        $row_object->make,
+        $row_object->model,
+        intval($row_object->year),
+        $row_object->description,
+        $row_object->img
+      );
+    }
+    return $cars;
   }
 }
 
