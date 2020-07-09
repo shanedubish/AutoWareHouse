@@ -28,6 +28,8 @@ body {
   background-repeat: no-repeat;
   background-position: bottom;
   margin-bottom: 2em;
+
+  box-decoration-break: clone;
 }
 
 .card {
@@ -60,5 +62,15 @@ body {
 .addcar {
   width: 80%;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 1em;
+}
+form {
   align-items: center;
+}
+h2 {
+  text-align: center;
 }

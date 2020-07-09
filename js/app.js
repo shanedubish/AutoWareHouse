@@ -120,7 +120,8 @@ class AddCar extends React.Component {
     return (
       <div>
         <div className="addcar">
-          <form onSubmit={this.createCar}>
+          <h2>Add a Car</h2>
+          <form className="addcar" onSubmit={this.createCar}>
             <input onKeyUp={this.makeNewMake} type="text" placeholder="Make" />
             <br />
             <input
@@ -250,7 +251,7 @@ class App extends React.Component {
   render = () => {
     return (
       <div>
-        <button className="btn-sm btn-primary" onClick={this.toggleAddForm}>
+        <button className="btn-sm btn-primary " onClick={this.toggleAddForm}>
           Add A Car
         </button>
         {this.state.addToggle ? <AddCar /> : null}
