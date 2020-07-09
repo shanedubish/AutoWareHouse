@@ -155,6 +155,62 @@ class AddCar extends React.Component {
   };
 }
 
+class ShowCar extends React.Component {
+  state = {
+    editToggle: false,
+  };
+
+  //  delete car
+  deleteCar = (event) => {
+    event.preventDefault();
+    axios.delete("/cars/" + event.target.value).then((response) => {
+      this.setState({ cars: response.data });
+    });
+    window.location.reload(false);
+    // console.log("ouch!!! you deleted me !!!");
+  };
+
+  toggleEditForm = () => {
+    this.setState({
+      editToggle: !this.state.editToggle,
+    });
+  };
+
+  render = () => {
+    return (
+      <div className="card text-center  ">
+        <img
+          src={this.props.car.img}
+          alt={this.props.car.model}
+          className="card-img-top"
+        />
+        <h5 className="card-title">
+          {this.props.car.year} {this.props.car.make} {this.props.car.model}
+        </h5>
+        <p className="card-text">{this.props.car.description}</p>
+        {/* buttons */}
+        <div className="mb-2">
+          <button
+            value={this.props.car.id}
+            className="btn-sm btn-primary m-2"
+            onClick={this.toggleEditForm}
+          >
+            EDIT
+          </button>
+          <button
+            onClick={this.deleteCar}
+            value={this.props.car.id}
+            className="btn-sm btn-danger m-2"
+          >
+            DELETE
+          </button>
+          {this.state.editToggle ? <EditCar id={this.props.car.id} /> : null}
+        </div>
+      </div>
+    );
+  };
+}
+
 class App extends React.Component {
   state = {
     cars: [],
@@ -171,13 +227,13 @@ class App extends React.Component {
   };
 
   //  delete car
-  deleteCar = (event) => {
-    event.preventDefault();
-    axios.delete("/cars/" + event.target.value).then((response) => {
-      this.setState({ cars: response.data });
-    });
-    // console.log("ouch!!! you deleted me !!!");
-  };
+  // deleteCar = (event) => {
+  //   event.preventDefault();
+  //   axios.delete("/cars/" + event.target.value).then((response) => {
+  //     this.setState({ cars: response.data });
+  //   });
+  //   // console.log("ouch!!! you deleted me !!!");
+  // };
 
   toggleAddForm = () => {
     this.setState({
@@ -185,11 +241,11 @@ class App extends React.Component {
     });
   };
 
-  toggleEditForm = () => {
-    this.setState({
-      editToggle: !this.state.editToggle,
-    });
-  };
+  // toggleEditForm = () => {
+  //   this.setState({
+  //     editToggle: !this.state.editToggle,
+  //   });
+  // };
 
   render = () => {
     return (
@@ -201,30 +257,8 @@ class App extends React.Component {
         <div className="d-flex flex-row justify-content-around flex-wrap">
           {this.state.cars.map((car, i) => {
             return (
-              <div key={i} className="card text-center  ">
-                <img src={car.img} alt={car.model} className="card-img-top" />
-                <h5 className="card-title">
-                  {car.year} {car.make} {car.model}
-                </h5>
-                <p className="card-text">{car.description}</p>
-                {/* buttons */}
-                <div className="mb-2">
-                  <button
-                    value={car.id}
-                    className="btn-sm btn-primary m-2"
-                    onClick={this.toggleEditForm}
-                  >
-                    EDIT
-                  </button>
-                  <button
-                    onClick={this.deleteCar}
-                    value={car.id}
-                    className="btn-sm btn-danger m-2"
-                  >
-                    DELETE
-                  </button>
-                  {this.state.editToggle ? <EditCar id={car.id} /> : null}
-                </div>
+              <div>
+                <ShowCar car={car} key={i} />
               </div>
             );
           })}
