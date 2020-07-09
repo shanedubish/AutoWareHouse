@@ -1,12 +1,30 @@
 body {
-  background-color: bisque;
+  background: #d7d3e2;
+  background: -moz-radial-gradient(
+    center,
+    #d7d3e2 0%,
+    #b4b1c4 32%,
+    #8890b4 100%
+  );
+  background: -webkit-radial-gradient(
+    center,
+    #d7d3e2 0%,
+    #b4b1c4 32%,
+    #8890b4 100%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    #d7d3e2 0%,
+    #b4b1c4 32%,
+    #8890b4 100%
+  );
 }
 
 .banner {
-  height: 25rem;
+  height: 20rem;
   width: 100%;
   background-image: url("/images/aston-martin.jpeg");
-
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
   margin-bottom: 2em;
