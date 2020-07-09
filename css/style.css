@@ -28,6 +28,9 @@ body {
   background-repeat: no-repeat;
   background-position: bottom;
   margin-bottom: 2em;
+  box-shadow-bottom: 0px 5px 11px 13px rgba(226, 226, 226, 0.84);
+  background-color: rgba(223, 227, 230, 0.7);
+  box-decoration-break: clone;
 }
 
 .card {
@@ -60,5 +63,10 @@ body {
 .addcar {
   width: 80%;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+form {
   align-items: center;
 }
