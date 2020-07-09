@@ -1,5 +1,7 @@
 class EditCar extends React.Component {
-  state = { cars: [] };
+  state = {
+    cars: [],
+  };
 
   // update car
   updateCar = (event) => {
@@ -22,30 +24,24 @@ class EditCar extends React.Component {
     console.log("don't change me !!!");
     console.log(this.props.id);
   };
+
   updateMake = (event) => {
-    if (event.target.value !== "") {
-      this.setState({ updateMake: event.target.value });
-    }
+    this.setState({ updateMake: event.target.value });
   };
+
   updateModel = (event) => {
-    if (event.target.value !== "") {
-      this.setState({ updateModel: event.target.value });
-    }
+    this.setState({ updateModel: event.target.value });
   };
   updateImage = (event) => {
-    if (event.target.value !== "") {
-      this.setState({ updateImage: event.target.value });
-    }
+    this.setState({ updateImage: event.target.value });
   };
+
   updateYear = (event) => {
-    if (event.target.value !== "") {
-      this.setState({ updateYear: event.target.value });
-    }
+    this.setState({ updateYear: event.target.value });
   };
+
   updateDescription = (event) => {
-    if (event.target.value !== "") {
-      this.setState({ updateDescription: event.target.value });
-    }
+    this.setState({ updateDescription: event.target.value });
   };
 
   render = () => {
@@ -53,12 +49,6 @@ class EditCar extends React.Component {
       <div>
         <form id={this.props.id} onSubmit={this.updateCar}>
           <input onKeyUp={this.updateMake} type="text" placeholder="Make" />
-          <br />
-          <input
-            onKeyUp={this.updateImage}
-            type="text"
-            placeholder="Add an Image"
-          />
           <br />
           <input onKeyUp={this.updateModel} type="text" placeholder="Model" />
           <br />
@@ -70,6 +60,12 @@ class EditCar extends React.Component {
             placeholder="Description"
           />
           <br />
+          <input
+            onKeyUp={this.updateImage}
+            type="text"
+            placeholder="Image URL"
+          />
+          <br />
           <input type="submit" value="Edit this Car" />
         </form>
       </div>
@@ -78,7 +74,10 @@ class EditCar extends React.Component {
 }
 
 class AddCar extends React.Component {
-  state = { cars: [] };
+  state = {
+    cars: [],
+    toggle: false,
+  };
 
   // create car
   createCar = (event) => {
@@ -93,75 +92,116 @@ class AddCar extends React.Component {
       })
       .then((response) => {
         this.setState({ cars: response.data });
-        console.log(this.state.cars);
+        // console.log(this.state.cars);
         window.location.reload(false);
       });
   };
+
   makeNewMake = (event) => {
     this.setState({ newMake: event.target.value });
   };
+
   makeNewImage = (event) => {
     this.setState({ newImage: event.target.value });
   };
+
   makeNewModel = (event) => {
     this.setState({ newModel: event.target.value });
   };
+
   makeNewYear = (event) => {
     this.setState({ newYear: event.target.value });
   };
+
   makeNewDescription = (event) => {
     this.setState({ newDescription: event.target.value });
+  };
+
+  toggleAddForm = () => {
+    this.setState({
+      toggle: !this.state.toggle,
+    });
   };
 
   render = () => {
     return (
       <div>
-        <form onSubmit={this.createCar}>
-          <input onKeyUp={this.makeNewMake} type="text" placeholder="Make" />
-          <br />
-          <input
-            onKeyUp={this.makeNewImage}
-            type="text"
-            placeholder="Add an Image"
-          />
-          <br />
-          <input onKeyUp={this.makeNewModel} type="text" placeholder="Model" />
-          <br />
-          <input onKeyUp={this.makeNewYear} type="text" placeholder="Year" />
-          <br />
-          <input
-            onKeyUp={this.makeNewDescription}
-            type="text"
-            placeholder="Description"
-          />
-          <br />
-          <input type="submit" value="Create New Car" />
-        </form>
+        <button className="btn-sm btn-primary" onClick={this.toggleAddForm}>
+          Add A Car
+        </button>
+        {this.state.toggle ? (
+          <div>
+            <form onSubmit={this.createCar}>
+              <input
+                onKeyUp={this.makeNewMake}
+                type="text"
+                placeholder="Make"
+              />
+              <br />
+              <input
+                onKeyUp={this.makeNewModel}
+                type="text"
+                placeholder="Model"
+              />
+              <br />
+              <input
+                onKeyUp={this.makeNewYear}
+                type="text"
+                placeholder="Year"
+              />
+              <br />
+              <input
+                onKeyUp={this.makeNewDescription}
+                type="text"
+                placeholder="Description"
+              />
+              <br />
+              <input
+                onKeyUp={this.makeNewImage}
+                type="text"
+                placeholder="Image URL"
+              />
+              <br />
+              <input
+                type="submit"
+                value="Create New Car"
+                className="btn-sm btn-primary"
+              />
+            </form>
+          </div>
+        ) : null}
       </div>
     );
   };
 }
 
 class App extends React.Component {
-  state = { cars: [] };
+  state = {
+    cars: [],
+    toggle: false,
+  };
 
   // get cars on page load
-
   componentDidMount = () => {
     axios.get("/cars").then((response) => {
       this.setState({ cars: response.data });
-      console.log(this.state.cars);
+      // console.log(this.state.cars);
     });
   };
 
   //  delete car
-
   deleteCar = (event) => {
     event.preventDefault();
     axios.delete("/cars/" + event.target.value).then((response) => {
       this.setState({ cars: response.data });
     });
     console.log("ouch!!! you deleted me !!!");
+  };
+
+  toggleEditForm = () => {
+    this.setState({
+      toggle: !this.state.toggle,
+    });
   };
 
   render = () => {
@@ -179,7 +219,11 @@ class App extends React.Component {
                 <p className="card-text">{car.description}</p>
                 {/* buttons */}
                 <div className="mb-2">
-                  <button value={car.id} className="btn-sm btn-primary m-2">
+                  <button
+                    value={car.id}
+                    className="btn-sm btn-primary m-2"
+                    onClick={this.toggleEditForm}
+                  >
                     EDIT
                   </button>
                   <button
@@ -189,7 +233,7 @@ class App extends React.Component {
                   >
                     DELETE
                   </button>
-                  <EditCar id={car.id} />
+                  {this.state.toggle ? <EditCar id={car.id} /> : null}
                 </div>
               </div>
             );
@@ -199,4 +243,5 @@ class App extends React.Component {
     );
   };
 }
+
 ReactDOM.render(<App></App>, document.querySelector("main"));
