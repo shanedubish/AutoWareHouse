@@ -16,32 +16,34 @@ class EditCar extends React.Component {
       })
       .then((response) => {
         this.setState({ cars: response.data });
+
+        window.location.reload(false);
       });
     console.log("don't change me !!!");
     console.log(this.props.id);
   };
   updateMake = (event) => {
-    if (event.target.value !== null) {
+    if (event.target.value !== "") {
       this.setState({ updateMake: event.target.value });
     }
   };
   updateModel = (event) => {
-    if (event.target.value !== null) {
+    if (event.target.value !== "") {
       this.setState({ updateModel: event.target.value });
     }
   };
   updateImage = (event) => {
-    if (event.target.value !== null) {
+    if (event.target.value !== "") {
       this.setState({ updateImage: event.target.value });
     }
   };
   updateYear = (event) => {
-    if (event.target.value !== null) {
+    if (event.target.value !== "") {
       this.setState({ updateYear: event.target.value });
     }
   };
   updateDescription = (event) => {
-    if (event.target.value !== null) {
+    if (event.target.value !== "") {
       this.setState({ updateDescription: event.target.value });
     }
   };
@@ -92,6 +94,7 @@ class AddCar extends React.Component {
       .then((response) => {
         this.setState({ cars: response.data });
         console.log(this.state.cars);
+        window.location.reload(false);
       });
   };
   makeNewMake = (event) => {
