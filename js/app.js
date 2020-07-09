@@ -119,7 +119,7 @@ class AddCar extends React.Component {
   render = () => {
     return (
       <div>
-        <div>
+        <div className="addcar">
           <form onSubmit={this.createCar}>
             <input onKeyUp={this.makeNewMake} type="text" placeholder="Make" />
             <br />
