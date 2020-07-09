@@ -76,7 +76,6 @@ class EditCar extends React.Component {
 class AddCar extends React.Component {
   state = {
     cars: [],
-    toggle: false,
   };
 
   // create car
@@ -117,59 +116,40 @@ class AddCar extends React.Component {
     this.setState({ newDescription: event.target.value });
   };
 
-  toggleAddForm = () => {
-    this.setState({
-      toggle: !this.state.toggle,
-    });
-  };
-
   render = () => {
     return (
       <div>
-        <button className="btn-sm btn-primary" onClick={this.toggleAddForm}>
-          Add A Car
-        </button>
-        {this.state.toggle ? (
-          <div>
-            <form onSubmit={this.createCar}>
-              <input
-                onKeyUp={this.makeNewMake}
-                type="text"
-                placeholder="Make"
-              />
-              <br />
-              <input
-                onKeyUp={this.makeNewModel}
-                type="text"
-                placeholder="Model"
-              />
-              <br />
-              <input
-                onKeyUp={this.makeNewYear}
-                type="text"
-                placeholder="Year"
-              />
-              <br />
-              <input
-                onKeyUp={this.makeNewDescription}
-                type="text"
-                placeholder="Description"
-              />
-              <br />
-              <input
-                onKeyUp={this.makeNewImage}
-                type="text"
-                placeholder="Image URL"
-              />
-              <br />
-              <input
-                type="submit"
-                value="Create New Car"
-                className="btn-sm btn-primary"
-              />
-            </form>
-          </div>
-        ) : null}
+        <div>
+          <form onSubmit={this.createCar}>
+            <input onKeyUp={this.makeNewMake} type="text" placeholder="Make" />
+            <br />
+            <input
+              onKeyUp={this.makeNewModel}
+              type="text"
+              placeholder="Model"
+            />
+            <br />
+            <input onKeyUp={this.makeNewYear} type="text" placeholder="Year" />
+            <br />
+            <input
+              onKeyUp={this.makeNewDescription}
+              type="text"
+              placeholder="Description"
+            />
+            <br />
+            <input
+              onKeyUp={this.makeNewImage}
+              type="text"
+              placeholder="Image URL"
+            />
+            <br />
+            <input
+              type="submit"
+              value="Create New Car"
+              className="btn-sm btn-primary"
+            />
+          </form>
+        </div>
       </div>
     );
   };
@@ -178,7 +158,8 @@ class AddCar extends React.Component {
 class App extends React.Component {
   state = {
     cars: [],
-    toggle: false,
+    addToggle: false,
+    editToggle: false,
   };
 
   // get cars on page load
@@ -195,19 +176,28 @@ class App extends React.Component {
     axios.delete("/cars/" + event.target.value).then((response) => {
       this.setState({ cars: response.data });
     });
-    console.log("ouch!!! you deleted me !!!");
+    // console.log("ouch!!! you deleted me !!!");
+  };
+
+  toggleAddForm = () => {
+    this.setState({
+      addToggle: !this.state.addToggle,
+    });
   };
 
   toggleEditForm = () => {
     this.setState({
-      toggle: !this.state.toggle,
+      editToggle: !this.state.editToggle,
     });
   };
 
   render = () => {
     return (
       <div>
-        <AddCar />
+        <button className="btn-sm btn-primary" onClick={this.toggleAddForm}>
+          Add A Car
+        </button>
+        {this.state.addToggle ? <AddCar /> : null}
         <div className="d-flex flex-row justify-content-around flex-wrap">
           {this.state.cars.map((car, i) => {
             return (
@@ -233,7 +223,7 @@ class App extends React.Component {
                   >
                     DELETE
                   </button>
-                  {this.state.toggle ? <EditCar id={car.id} /> : null}
+                  {this.state.editToggle ? <EditCar id={car.id} /> : null}
                 </div>
               </div>
             );
