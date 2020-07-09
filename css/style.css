@@ -28,8 +28,7 @@ body {
   background-repeat: no-repeat;
   background-position: bottom;
   margin-bottom: 2em;
-  box-shadow-bottom: 0px 5px 11px 13px rgba(226, 226, 226, 0.84);
-  background-color: rgba(223, 227, 230, 0.7);
+
   box-decoration-break: clone;
 }
 
@@ -66,7 +65,12 @@ body {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  text-align: center;
+  margin-bottom: 1em;
 }
 form {
   align-items: center;
+}
+h2 {
+  text-align: center;
 }
